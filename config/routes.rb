@@ -1,3 +1,9 @@
+#frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  scope "/api" do
+    get '/current_user', to: "users#current", as: :current_user
+    post "/sessions", to: "sessions#create"
+    delete "/sessions", to: "sessions#destroy"
+  end
 end
