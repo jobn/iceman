@@ -1,0 +1,23 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/*'
+    - 'client/**/*'
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/FileName:
+  Exclude:
+    - 'Gemfile'
+
+Documentation:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
