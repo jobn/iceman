@@ -1,24 +1,25 @@
-# README
+# PROJECT ICEMAN
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Planning app for families and children with ASF
 
-Things you may want to cover:
+## Development setup
 
-* Ruby version
+Backend in Rails 5.1,
+client in React 15.5
 
-* System dependencies
+ruby-version 2.4,
+node-version 7.10
 
-* Configuration
+The client app is bootstrapped using [create-react-app](https://github.com/facebookincubator/create-react-app)
 
-* Database creation
+Run the following commands to setup dev environment
 
-* Database initialization
+* `bundle install`
+* `npm i -g create-react-app`
+* `cd client && npm install`
 
-* How to run the test suite
+## Starting the servers
 
-* Services (job queues, cache servers, search engines, etc.)
+Development servers are managed by foreman and there is a rake task to start foreman. So booting the dev servers is as simple as:
 
-* Deployment instructions
-
-* ...
+`rake start`
