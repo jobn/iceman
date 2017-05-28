@@ -4,14 +4,13 @@ class SessionsController < ApplicationController
   before_action :authenticate, only: :destroy
 
   def create
-    user = User.try_authenticate(
+    token = CreateSession.new(
       email: session_params[:email],
       password: session_params[:password]
-    )
+    ).call
 
-    if user
-      @token = user.authentication_tokens.create
-      render json: @token, status: :ok
+    if token
+      render json: token, status: :ok
     else
       render json: {}, status: :unauthorized
     end
