@@ -4,7 +4,10 @@ class SessionsController < ApplicationController
   before_action :authenticate, only: :destroy
 
   def create
-    user = User.find_by(email: session_params[:email]).try(:authenticate, session_params[:password])
+    user = User.try_authenticate(
+      email: session_params[:email],
+      password: session_params[:password]
+    )
 
     if user
       @token = user.authentication_tokens.create

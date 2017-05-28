@@ -4,4 +4,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :authentication_tokens
+
+  def self.try_authenticate(email:, password:)
+    find_by(email: email).try(:authenticate, password)
+  end
 end
