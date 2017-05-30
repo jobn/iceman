@@ -1,10 +1,13 @@
 // @flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { authenticate } from '../actions/user'
+import { authenticate } from '../../actions/user'
+import { authenticationSelector } from '../../selectors/authentication'
+import ErrorMessage from './Error'
 
 type Props = {
-  requesting: boolean,
+  meta: Object,
+  authenticated: boolean,
   onAuthenticate: Function,
 }
 
@@ -25,7 +28,7 @@ class SignIn extends Component {
   }
 
   render() {
-    const { requesting } = this.props
+    const { authenticated, meta: { requesting, error } } = this.props
 
     return (
       <form className='SignIn' onSubmit={this.handleSubmit}>
@@ -40,14 +43,18 @@ class SignIn extends Component {
          </label>
 
          <input type="submit" value="Submit" disabled={requesting} />
+
+         {error &&
+           <ErrorMessage error={error} />
+         }
+
+         {authenticated &&
+           <div className='success'>
+             <p>Success :)</p>
+           </div>
+         }
        </form>
     )
-  }
-}
-
-const mapStateToProps = (state: Object): Object => {
-  return {
-    requesting: state.authentication.meta.requesting,
   }
 }
 
@@ -56,6 +63,6 @@ const mapDispatchToProps = {
 }
 
 export default connect(
-  mapStateToProps,
+  authenticationSelector,
   mapDispatchToProps
 )(SignIn)
