@@ -27,7 +27,7 @@ const authentication = (state: Object = initialState, action: Action): State => 
       return { ...state, meta: { requesting: true, error: null } }
 
     case 'AUTHENTICATION_SUCCEEDED':
-      const { token, user_id } = payload
+      const { authentication_token: { token, user_id } } = payload
       return { ...state, token, user_id, authenticated: true, meta: { requesting: false } }
 
     case 'AUTHENTICATION_FAILED':
