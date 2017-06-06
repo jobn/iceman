@@ -5,14 +5,12 @@ import type { Meta } from '../types'
 type State = {
   authenticated: boolean,
   token: string | null,
-  user_id: number | null,
   meta: Meta,
 }
 
 const initialState: State = {
   authenticated: false,
   token: null,
-  user_id: null,
   meta: {
     requesting: false,
     error: null
