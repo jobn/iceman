@@ -33,6 +33,20 @@ class Api {
     .then(checkStatus)
     .then(parseJSON)
   }
+
+  fetch(payload: Object): Promise<*> {
+    const { endpoint, token } = payload
+
+    return fetch(`/api${endpoint}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token token=${token}`
+      }
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+  }
 }
 
 export default new Api()

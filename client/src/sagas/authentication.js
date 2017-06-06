@@ -9,6 +9,7 @@ export function* authenticate(action: Action): Generator<*,*,*> {
   try {
     const response = yield call(Api.authenticate, { ...payload })
     yield put({ type: 'AUTHENTICATION_SUCCEEDED', payload: { ...response } })
+    yield put({ type: 'FETCH_CURRENT_USER' })
   }
   catch(error) {
     yield put({ type: 'AUTHENTICATION_FAILED', payload: { error: { ...error.response } } })
