@@ -1,7 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-superman:
-  name: superman
-  email: superman@dc.com
+simon:
+  name: simon
+  email: simon@jensen.dk
+  role: child
+  password_digest: <%= BCrypt::Password.create('password') %>
+
+peter:
+  name: peter
+  email: peter@hansen.dk
   role: child
   password_digest: <%= BCrypt::Password.create('password') %>

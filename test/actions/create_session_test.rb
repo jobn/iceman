@@ -5,7 +5,7 @@ require 'test_helper'
 class CreateSessionTest < ActiveSupport::TestCase
   test 'returns an AuthenticationToken if credentials is valid' do
     token = CreateSession.new(
-      email: users(:superman).email,
+      email: users(:simon).email,
       password: 'password'
     ).call
 
@@ -14,7 +14,7 @@ class CreateSessionTest < ActiveSupport::TestCase
 
   test 'returns nil if credentials is not valid' do
     token = CreateSession.new(
-      email: users(:superman).email,
+      email: users(:simon).email,
       password: 'wrong'
     ).call
 

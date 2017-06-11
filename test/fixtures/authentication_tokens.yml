@@ -1,5 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-supermans_token:
+simons_token:
   token: secret_string
-  user: superman
+  user: simon
