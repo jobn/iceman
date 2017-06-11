@@ -3,13 +3,11 @@
 simon:
   name: simon
   email: simon@jensen.dk
-  role: child
   account: jensen
   password_digest: <%= BCrypt::Password.create('password') %>
 
 peter:
   name: peter
   email: peter@hansen.dk
-  role: child
   account: hansen
   password_digest: <%= BCrypt::Password.create('password') %>
