@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170527110302) do
+ActiveRecord::Schema.define(version: 20170611140011) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "authentication_tokens", force: :cascade do |t|
     t.string "token"
@@ -27,6 +32,8 @@ ActiveRecord::Schema.define(version: 20170527110302) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "account_id"
+    t.index ["account_id"], name: "index_users_on_account_id"
   end
 
 end

@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   has_secure_password
 
+  belongs_to :account
   has_many :authentication_tokens
 
   def self.try_authenticate(email:, password:)
