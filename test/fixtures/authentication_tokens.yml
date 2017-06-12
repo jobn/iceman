@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 simons_token:
-  token: secret_string
+  token: simon_secret_string
   user: simon
 
 simons_moms_token:
-  token: secret_string
+  token: simons_moms_secret_string
   user: simons_mom
+
+peters_token:
+  token: peters_secret_string
+  user: peter
