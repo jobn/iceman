@@ -19,4 +19,8 @@ class ActiveSupport::TestCase
       assert_includes record.errors[attribute], message
     end
   end
+
+  def signed_in_as(user)
+    { headers: { 'HTTP_AUTHORIZATION' => "Token token=#{user.authentication_tokens.last.token}" } }
+  end
 end
