@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   belongs_to :account
   has_many :authentication_tokens
+  has_one :plan
 
   def self.try_authenticate(email:, password:)
     find_by(email: email).try(:authenticate, password)

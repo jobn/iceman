@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+simons_plan:
+  user: simon
+
+mortens_plan:
+  user: morten

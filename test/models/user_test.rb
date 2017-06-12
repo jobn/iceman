@@ -14,4 +14,8 @@ class UserTest < ActiveSupport::TestCase
   test '.account returns associated account' do
     assert_equal users(:simon).account, accounts(:jensen)
   end
+
+  test '.plan returns the associated plan' do
+    assert_equal users(:simon).plan, plans(:simons_plan)
+  end
 end
