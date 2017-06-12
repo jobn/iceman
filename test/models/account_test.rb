@@ -11,4 +11,10 @@ class AccountTest < ActiveSupport::TestCase
     assert_includes accounts(:jensen).users, users(:simon)
     refute_includes accounts(:jensen).users, users(:peter)
   end
+
+  test 'associated users are destroyed when account is destroyed' do
+    assert_difference 'User.count', -1 do
+      accounts(:hansen).destroy
+    end
+  end
 end
