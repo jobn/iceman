@@ -3,3 +3,7 @@
 simons_token:
   token: secret_string
   user: simon
+
+simons_moms_token:
+  token: secret_string
+  user: simons_mom
