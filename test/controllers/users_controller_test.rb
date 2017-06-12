@@ -13,6 +13,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
+  test '/current_user retuns the signed in user' do
+    simon = users(:simon)
+    get current_user_path, signed_in_as(simon)
+
+    pattern = {
+      user: {
+        id: simon.id,
+        name: simon.name,
+        email: simon.email
+      }
+    }
+
+    assert_json_match pattern, response.body
+  end
+
   test '/users returns users within same account' do
     get users_path, signed_in_as(users(:simon))
 
