@@ -12,4 +12,22 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get current_user_path, headers: { 'HTTP_AUTHORIZATION' => 'Token token=wrong' }
     assert_response :unauthorized
   end
+
+  test '/users returns users within same account' do
+    get users_path, signed_in_as(users(:simon))
+
+    pattern = {
+      users: [
+        {
+          id: users(:simon).id
+        }.ignore_extra_keys!,
+        {
+          id: users(:simons_mom).id
+        }.ignore_extra_keys!
+      ]
+    }
+
+    assert_json_match pattern, response.body
+    assert_response :success
+  end
 end
