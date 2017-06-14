@@ -38,6 +38,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         }.ignore_extra_keys!,
         {
           id: users(:simons_mom).id
+        }.ignore_extra_keys!,
+        {
+          id: users(:simone).id
         }.ignore_extra_keys!
       ]
     }

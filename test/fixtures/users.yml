@@ -12,6 +12,12 @@ simons_mom:
   account: jensen
   password_digest: <%= BCrypt::Password.create('password') %>
 
+simone:
+  name: simone
+  email: simone@jensen.dk
+  account: jensen
+  password_digest: <%= BCrypt::Password.create('password') %>
+
 peter:
   name: peter
   email: peter@hansen.dk
