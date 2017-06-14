@@ -8,6 +8,7 @@ AllCops:
     - 'script/**/*'
     - 'bin/*'
     - 'client/**/*'
+    - Guardfile
 
 Metrics/LineLength:
   Enabled: false

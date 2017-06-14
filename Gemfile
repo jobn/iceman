@@ -42,6 +42,9 @@ group :development do
 
   gem 'foreman'
   gem 'rubocop', require: false
+
+  gem 'guard'
+  gem 'guard-minitest'
 end
 
 group :test do
