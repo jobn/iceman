@@ -17,4 +17,9 @@ class AccountTest < ActiveSupport::TestCase
       accounts(:hansen).destroy
     end
   end
+
+  test '.plans returns plans associated through users' do
+    assert_includes accounts(:jensen).plans, plans(:simons_plan)
+    assert_includes accounts(:jensen).plans, plans(:simons_moms_plan)
+  end
 end

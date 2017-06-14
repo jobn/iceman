@@ -5,3 +5,6 @@ simons_plan:
 
 peters_plan:
   user: peter
+
+simons_moms_plan:
+  user: simons_mom
