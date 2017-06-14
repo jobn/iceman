@@ -22,11 +22,21 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get show' do
-    skip 'pending'
+    get plan_url(plans(:simons_plan)), signed_in_as(users(:simon))
+
+    pattern = {
+      plan: {
+        id: plans(:simons_plan).id
+      }
+    }
+
+    assert_json_match pattern, response.body
+    assert_response :success
   end
 
-  test 'should get new' do
-    skip 'pending'
+  test 'should not return plan from other account' do
+    get plan_url(plans(:peters_plan)), signed_in_as(users(:simon))
+    assert_response :not_found
   end
 
   test 'should get create' do
