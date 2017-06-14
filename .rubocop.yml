@@ -13,6 +13,10 @@ AllCops:
 Metrics/LineLength:
   Enabled: false
 
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+
 Style/FileName:
   Exclude:
     - 'Gemfile'
