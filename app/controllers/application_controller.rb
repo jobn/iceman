@@ -14,6 +14,14 @@ class ApplicationController < ActionController::API
     render_unauthorized unless @token
   end
 
+  def account
+    current_user.account
+  end
+
+  def plans
+    account.plans
+  end
+
   private
 
   def authentication_token
