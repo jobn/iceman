@@ -73,7 +73,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test 'should return 422 on invalid params in create post' do
+  test 'should return 400 on invalid params in create post' do
     assert_no_difference 'Plan.count' do
       options = signed_in_as(users(:simon)).merge(
         params: {}
@@ -81,7 +81,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
       post plans_url, options
     end
 
-    assert_response :unprocessable_entity
+    assert_response :bad_request
   end
 
   test 'should update plan' do
@@ -112,13 +112,13 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test 'should return 422 on invalid params in update put' do
+  test 'should return 400 on invalid params in update put' do
     options = signed_in_as(users(:simon)).merge(
       params: {}
     )
     put plan_url(plans(:simons_plan)), options
 
-    assert_response :unprocessable_entity
+    assert_response :bad_request
   end
 
   test 'should destroy plan' do

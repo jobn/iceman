@@ -46,6 +46,6 @@ class PlansController < ApplicationController
   end
 
   def parameter_missing
-    render json: {}, status: :unprocessable_entity
+    render json: {}, status: :bad_request
   end
 end
