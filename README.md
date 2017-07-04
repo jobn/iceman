@@ -5,17 +5,15 @@ Planning app for families and children with ASF
 ## Development setup
 
 Backend in Rails 5.1,
-client in React 15.5
+client in Ember
 
 ruby-version 2.4,
-node-version 7.10
-
-The client app is bootstrapped using [create-react-app](https://github.com/facebookincubator/create-react-app)
+node-version 8.1.3
 
 Run the following commands to setup dev environment
 
 * `bundle install`
-* `npm i -g create-react-app`
+* `npm install -g ember-cli@2.13`
 * `cd client && npm install`
 
 ## Starting the servers
