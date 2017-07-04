@@ -1,26 +1,29 @@
 // @flow
 import React, { Component } from 'react';
+import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { authenticationSelector } from '../selectors/authentication'
 import SignIn from './SignIn';
 import logo from '../logo.svg';
 import '../App.css';
 
 type Props = {
-  user: {
-    id: number,
-    name: string,
-    email: string,
-  }
+  authenticated: boolean,
 }
 
 class App extends Component {
   props: Props
 
   render() {
-    const { user: { name, email } } = this.props
+    const { authenticated } = this.props
 
     return (
       <div className="App">
+        {authenticated ?
+          <Route path="/plans" component={Plans} />
+          <Redirect to="/plans" />
+        }
+
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Hello {name}, Welcome to React</h2>
@@ -36,12 +39,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state: Object): Object => {
-  return {
-    user: state.user
-  }
-}
-
 export default connect(
-  mapStateToProps,
+  authenticationSelector,
 )(App);
