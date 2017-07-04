@@ -24,22 +24,18 @@
 
 # Client
 
+# compiled output
+/client/dist
+/client/tmp
+
 # dependencies
 /client/node_modules
-
-# testing
-/client/coverage
-
-# production
-/client/build
+/client/bower_components
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+/client/.sass-cache
+/client/connect.lock
+/client/coverage/*
+/client/libpeerconnection.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+testem.log
