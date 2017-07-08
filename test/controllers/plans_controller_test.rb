@@ -12,12 +12,14 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     get plans_url, signed_in_as(users(:simon))
 
     pattern = {
-      plans: [
+      data: [
         {
-          id: plans(:simons_plan).id
+          id: plans(:simons_plan).id.to_s,
+          type: 'plans'
         }.ignore_extra_keys!,
         {
-          id: plans(:simons_moms_plan).id
+          id: plans(:simons_moms_plan).id.to_s,
+          type: 'plans'
         }.ignore_extra_keys!
       ]
     }
@@ -30,8 +32,20 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     get plan_url(plans(:simons_plan)), signed_in_as(users(:simon))
 
     pattern = {
-      plan: {
-        id: plans(:simons_plan).id
+      data: {
+        id: plans(:simons_plan).id.to_s,
+        type: 'plans',
+        relationships: {
+          events: {
+            data: wildcard_matcher
+          },
+          user: {
+            data: {
+              id: users(:simon).id.to_s,
+              type: 'users'
+            }
+          }
+        }
       }
     }
 
@@ -53,8 +67,9 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     end
 
     pattern = {
-      plan: {
-        id: Integer
+      data: {
+        id: String,
+        type: 'plans'
       }.ignore_extra_keys!
     }
 

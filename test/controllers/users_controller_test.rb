@@ -4,43 +4,54 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'authentication success' do
-    get current_user_path, headers: { 'HTTP_AUTHORIZATION' => "Token token=#{authentication_tokens(:simons_token).token}" }
+    get users_path, headers: { 'HTTP_AUTHORIZATION' => "Token token=#{authentication_tokens(:simons_token).token}" }
     assert_response :success
   end
 
   test 'authentication fail' do
-    get current_user_path, headers: { 'HTTP_AUTHORIZATION' => 'Token token=wrong' }
+    get users_path, headers: { 'HTTP_AUTHORIZATION' => 'Token token=wrong' }
     assert_response :unauthorized
   end
 
-  test '/current_user retuns the signed in user' do
+  test 'get /user/:id retuns user' do
     simon = users(:simon)
-    get current_user_path, signed_in_as(simon)
+    get user_path(simon), signed_in_as(simon)
 
     pattern = {
-      user: {
-        id: simon.id,
-        name: simon.name,
-        email: simon.email
+      data: {
+        id: simon.id.to_s,
+        type: 'users',
+        attributes: {
+          name: simon.name,
+          email: simon.email
+        },
+        relationships: {
+          plan: {
+            data: {
+              id: plans(:simons_plan).id.to_s,
+              type: 'plans'
+            }
+          }
+        }
       }
     }
 
     assert_json_match pattern, response.body
   end
 
-  test '/users returns users within same account' do
+  test 'get /users returns users within same account' do
     get users_path, signed_in_as(users(:simon))
 
     pattern = {
-      users: [
+      data: [
         {
-          id: users(:simon).id
+          id: users(:simon).id.to_s
         }.ignore_extra_keys!,
         {
-          id: users(:simons_mom).id
+          id: users(:simons_mom).id.to_s
         }.ignore_extra_keys!,
         {
-          id: users(:simone).id
+          id: users(:simone).id.to_s
         }.ignore_extra_keys!
       ]
     }

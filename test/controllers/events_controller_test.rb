@@ -12,12 +12,14 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     get plan_events_url(plans(:simons_plan)), signed_in_as(users(:simon))
 
     pattern = {
-      events: [
+      data: [
         {
-          id: events(:simon_gets_up).id
+          id: events(:simon_gets_up).id.to_s,
+          type: 'events'
         }.ignore_extra_keys!,
         {
-          id: events(:simon_eats_breakfast).id
+          id: events(:simon_eats_breakfast).id.to_s,
+          type: 'events'
         }.ignore_extra_keys!
       ]
     }
@@ -31,13 +33,23 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     get event_url(event), signed_in_as(users(:simon))
 
     pattern = {
-      event: {
-        id: event.id,
-        title: event.title,
-        color: event.color,
-        starts_at: event.starts_at,
-        ends_at: event.ends_at,
-        plan_id: event.plan_id
+      data: {
+        id: event.id.to_s,
+        type: 'events',
+        attributes: {
+          title: event.title,
+          color: event.color,
+          'starts-at': event.starts_at,
+          'ends-at': event.ends_at
+        },
+        relationships: {
+          plan: {
+            data: {
+              id: plans(:simons_plan).id.to_s,
+              type: 'plans'
+            }
+          }
+        }
       }
     }
 
@@ -67,11 +79,21 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     end
 
     pattern = {
-      event: {
-        id: Integer,
-        title: 'Leave for school',
-        plan_id: plans(:simons_plan).id
-      }.ignore_extra_keys!
+      data: {
+        id: String,
+        type: 'events',
+        attributes: {
+          title: 'Leave for school'
+        }.ignore_extra_keys!,
+        relationships: {
+          plan: {
+            data: {
+              id: plans(:simons_plan).id.to_s,
+              type: 'plans'
+            }
+          }
+        }
+      }
     }
 
     assert_json_match pattern, response.body
@@ -138,9 +160,12 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     put event_url(events(:simon_gets_up)), options
 
     pattern = {
-      event: {
-        id: events(:simon_gets_up).id,
-        title: 'Stay in bed'
+      data: {
+        id: events(:simon_gets_up).id.to_s,
+        type: 'events',
+        attributes: {
+          title: 'Stay in bed'
+        }.ignore_extra_keys!
       }.ignore_extra_keys!
     }
 

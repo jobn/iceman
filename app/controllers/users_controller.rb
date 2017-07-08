@@ -3,8 +3,8 @@
 class UsersController < ApplicationController
   before_action :authenticate
 
-  def current
-    render json: current_user, status: :ok
+  def show
+    render json: account.users.find(params[:id])
   end
 
   def index
