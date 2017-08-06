@@ -3,7 +3,9 @@ import { belongsTo } from 'ember-data/relationships';
 import attr from 'ember-data/attr';
 
 export default Model.extend({
-  name: attr(),
-  email: attr(),
   plan: belongsTo('plan'),
+  title: attr(),
+  color: attr(),
+  starts_at: attr('date'),
+  ends_at: attr('date'),
 });
