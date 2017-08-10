@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react'
+import { Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { authenticate } from '../../actions/user'
 import { authenticationSelector } from '../../selectors/authentication'
@@ -11,7 +12,7 @@ type Props = {
   onAuthenticate: Function,
 }
 
-class SignIn extends Component {
+class Login extends Component {
   email: HTMLInputElement
   password: HTMLInputElement
   handleSubmit: Function
@@ -31,29 +32,27 @@ class SignIn extends Component {
     const { authenticated, meta: { requesting, error } } = this.props
 
     return (
-      <form className='SignIn' onSubmit={this.handleSubmit}>
-         <label>
-           Email:
-           <input type="text" ref={(input) => this.email = input} disabled={requesting} />
-         </label>
+      <Route path="/login" render={() =>
+        authenticated ?
+          <Redirect to="/app" /> :
+          <form className="login" onSubmit={this.handleSubmit}>
+             <label>
+               Email:
+               <input type="text" ref={(input) => this.email = input} disabled={requesting} />
+             </label>
 
-         <label>
-           Password:
-           <input type="text" ref={(input) => this.password = input} disabled={requesting} />
-         </label>
+             <label>
+               Password:
+               <input type="text" ref={(input) => this.password = input} disabled={requesting} />
+             </label>
 
-         <input type="submit" value="Submit" disabled={requesting} />
+             <input type="submit" value="Submit" disabled={requesting} />
 
-         {error &&
-           <ErrorMessage error={error} />
-         }
-
-         {authenticated &&
-           <div className='success'>
-             <p>Success :)</p>
-           </div>
-         }
-       </form>
+             {error &&
+               <ErrorMessage error={error} />
+             }
+           </form>
+      } />
     )
   }
 }
@@ -62,7 +61,7 @@ const mapDispatchToProps = {
   onAuthenticate: authenticate
 }
 
-export default connect(
+export default withRouter(connect(
   authenticationSelector,
   mapDispatchToProps
-)(SignIn)
+)(Login))

@@ -1,5 +1,6 @@
 // @flow
 import type Action from 'redux'
+import { REHYDRATE } from 'redux-persist/constants'
 import type { Meta } from '../types'
 
 type State = {
@@ -21,6 +22,11 @@ const authentication = (state: Object = initialState, action: Action): State => 
   const { type, payload } = action
 
   switch (type) {
+    case REHYDRATE:
+      const { authentication } = payload
+      const { meta } = state
+      return { ...authentication, meta: { ...meta } }
+
     case 'AUTHENTICATE':
       return { ...state, meta: { requesting: true, error: null } }
 
