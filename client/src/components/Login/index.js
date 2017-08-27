@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react'
 import { Route, Redirect, withRouter } from 'react-router-dom'
+import { Button, Form, Message, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { authenticate } from '../../actions/user'
 import { authenticationSelector } from '../../selectors/authentication'
-import ErrorMessage from './Error'
 
 type Props = {
   meta: Object,
@@ -12,46 +12,84 @@ type Props = {
   onAuthenticate: Function,
 }
 
-class Login extends Component {
-  email: HTMLInputElement
-  password: HTMLInputElement
+type State = {
+  email: ?string,
+  password: ?string,
+}
+
+class Login extends Component<Props, State> {
   handleSubmit: Function
   props: Props
+  state: State = {
+    email: null,
+    password: null,
+  }
 
-  handleSubmit = (event: Event) => {
+  handleSubmit = (event: SyntheticEvent<*>) => {
     event.preventDefault()
     const { onAuthenticate } = this.props
+    const { email, password } = this.state
 
-    onAuthenticate(
-      this.email.value,
-      this.password.value,
-    )
+    onAuthenticate(email,password)
+    this.setState({
+      email: null,
+      password: null,
+    })
+  }
+
+  handleEmailChange = (event: SyntheticEvent<*>) => {
+    if (event.target instanceof HTMLInputElement) {
+      this.setState({
+        email: event.target.value
+      })
+    }
+  }
+
+  handlePasswordChange = (event: SyntheticEvent<*>) => {
+    if (event.target instanceof HTMLInputElement) {
+      this.setState({
+        password: event.target.value
+      })
+    }
   }
 
   render() {
     const { authenticated, meta: { requesting, error } } = this.props
-
     return (
       <Route path="/login" render={() =>
         authenticated ?
           <Redirect to="/app" /> :
-          <form className="login" onSubmit={this.handleSubmit}>
-             <label>
-               Email:
-               <input type="text" ref={(input) => this.email = input} disabled={requesting} />
-             </label>
+            <div className="container">
+              <div className="login">
+                <Form size='large' onSubmit={this.handleSubmit} error={error}>
+                  <Segment>
+                    <Message
+                      error
+                      header='Fejl'
+                      content='Brugernavn og adgangskode stemmer ikke overens'
+                    />
 
-             <label>
-               Password:
-               <input type="text" ref={(input) => this.password = input} disabled={requesting} />
-             </label>
+                    <Form.Input
+                      icon='user'
+                      iconPosition='left'
+                      placeholder='E-mail addresse'
+                      onChange={this.handleEmailChange}
+                      disabled={requesting}
+                    />
 
-             <input type="submit" value="Submit" disabled={requesting} />
-
-             {error &&
-               <ErrorMessage error={error} />
-             }
-           </form>
+                    <Form.Input
+                      icon='lock'
+                      iconPosition='left'
+                      placeholder='Adgangskode'
+                      type='password'
+                      onChange={this.handlePasswordChange}
+                      disabled={requesting}
+                    />
+                    <Button fluid size='large' disabled={requesting}>Log ind</Button>
+                  </Segment>
+                </Form>
+            </div>
+          </div>
       } />
     )
   }

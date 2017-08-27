@@ -4,13 +4,12 @@ import { Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { authenticationSelector } from '../selectors/authentication'
 import Dashboard from './Dashboard'
-import '../App.css';
 
 type Props = {
   authenticated: boolean,
 }
 
-class App extends Component {
+class App extends Component<Props> {
   props: Props
 
   render() {
